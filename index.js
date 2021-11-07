@@ -430,7 +430,6 @@ export default class JWPlayer extends Component {
       return true;
     }
 
-    // this is a test commit
 
     if (playlist && thisConfig.playlist) {
       return !this.arraysAreEqual(playlist, thisConfig.playlist);
