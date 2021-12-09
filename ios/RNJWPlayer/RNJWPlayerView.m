@@ -912,6 +912,17 @@
     }
 }
 
+- (void)jwplayer:(id<JWPlayer>)player isBufferingWithReason:(enum JWBufferReason)reason
+{
+    if (_playerViewController) {
+        [_playerViewController jwplayer:player isBufferingWithReason:reason];
+    }
+    
+    if (self.onBuffer) {
+        self.onBuffer(@{});
+    }
+}
+
 - (void)jwplayer:(id<JWPlayer>)player updatedBuffer:(double)percent position:(JWTimeData *)time
 {
     if (_playerViewController) {
@@ -1046,7 +1057,7 @@
         NSMutableDictionary* schedDict = [[NSMutableDictionary alloc] init];
         for (JWAdBreak* sched in item.adSchedule) {
             [schedDict setObject:sched.offset forKey:@"offset"];
-            [schedDict setObject:sched.tagArray forKey:@"tags"];
+            [schedDict setObject:sched.tags forKey:@"tags"];
             [schedDict setObject:@(sched.type) forKey:@"type"];
         }
         
@@ -1097,7 +1108,7 @@
             NSMutableDictionary* schedDict = [[NSMutableDictionary alloc] init];
             for (JWAdBreak* sched in item.adSchedule) {
                 [schedDict setObject:sched.offset forKey:@"offset"];
-                [schedDict setObject:sched.tagArray forKey:@"tags"];
+                [schedDict setObject:sched.tags forKey:@"tags"];
                 [schedDict setObject:@(sched.type) forKey:@"type"];
             }
             
